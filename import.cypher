@@ -1,4 +1,4 @@
-WITH ["Hold", "Assess", "Trial", "Adopt"] AS positions
+WITH ["hold", "assess", "trial", "adopt"] AS positions
 UNWIND RANGE (0, size(positions) - 2) AS index
 WITH positions[index] AS pos1, positions[index + 1] AS pos2
 MERGE (position1:Position {value: pos1})
@@ -6,7 +6,7 @@ MERGE (position2:Position {value: pos2})
 MERGE (position1)-[:NEXT]->(position2);
 
 
-load csv with headers from "file:///entries.csv" AS row
+load csv with headers from "file:///blips.csv" AS row
 MATCH (position:Position {value:  row.suggestion })
 MERGE (tech:Technology {name:  row.technology })
 MERGE (date:Date {value: row.date})
